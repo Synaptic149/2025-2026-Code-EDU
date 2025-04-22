@@ -1,0 +1,80 @@
+package Basic;
+
+// Import Necessary Libraries
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+
+// Name of the OpMode on the Driver Station
+@TeleOp(name="Mecanum Drive w/o Odometry (Robot centric)", group="Iterative Opmode")
+
+// Class Name
+public class Mecanum_drive extends OpMode{
+
+    /*
+     * The mecanum drivetrain involves four separate motors that spin in
+     * different directions and different speeds to produce the desired
+     * movement at the desired speed.
+     */
+
+    // declare and initialize four DcMotors. These are the motors that are used in the mecanum drivetrain
+    private DcMotor front_left  = null;
+    private DcMotor front_right = null;
+    private DcMotor back_left   = null;
+    private DcMotor back_right  = null;
+
+
+    // actions that happen when you press the "Init" button on the Driver Station
+    // During the "Init" phase, you must initialize all of your hardware, including paths and timers.
+    @Override
+    public void init() {
+
+        // Name strings must match up with the config on the Robot Controller
+
+        // Variable name = hardwareMap.get(DcMotor.class, "motor_name");
+        front_left   = hardwareMap.get(DcMotor.class, "front_left");
+        front_right  = hardwareMap.get(DcMotor.class, "front_right");
+        back_left    = hardwareMap.get(DcMotor.class, "back_left");
+        back_right   = hardwareMap.get(DcMotor.class, "back_right");
+
+        // Correct reversing of motors (the ones of the right side)
+        front_right.setDirection(DcMotorSimple.Direction.REVERSE);
+        back_right.setDirection(DcMotorSimple.Direction.REVERSE);
+    }
+
+
+    // actions that happen when you press the "Start" button on the Driver Station
+    // It is a continuous loop that will run until you press the "Stop" button on the Driver Station, this allows for inputs from gamepad to be read
+    // Along with feedback to the drive station such as values / positions
+    @Override
+    public void loop() {
+
+        // variable to set the powers of the 4 motors. They are dependent on joystick position
+        double r = Math.hypot(-gamepad1.left_stick_x, gamepad1.left_stick_y);
+
+        // variable to set the angle of the robot depending on the joystick input
+
+        double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
+
+        // basically a bunch of math
+
+        // Variable of turning
+        double rightX = -gamepad1.right_stick_x; // Inverting the controls correctly
+
+        // math to find the values to set the powers of the motors
+        final double v1 = r * Math.cos(robotAngle) + rightX;
+        final double v2 = r * Math.sin(robotAngle) - rightX;
+        final double v3 = r * Math.sin(robotAngle) + rightX;
+        final double v4 = r * Math.cos(robotAngle) - rightX;
+
+
+        // finally setting the powers of the motors
+
+        front_left.setPower(v1);
+        front_right.setPower(v2);
+        back_left.setPower(v3);
+        back_right.setPower(v4);
+    }
+}

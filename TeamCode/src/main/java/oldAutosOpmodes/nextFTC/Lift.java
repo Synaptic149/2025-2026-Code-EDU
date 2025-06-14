@@ -1,4 +1,4 @@
-package pedroPathing.nextFTC;
+package oldAutosOpmodes.nextFTC;
 
 import com.rowanmcalpin.nextftc.core.Subsystem;
 import com.rowanmcalpin.nextftc.core.command.Command;

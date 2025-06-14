@@ -1,4 +1,4 @@
-package pedroPathing.archived;
+package oldAutosOpmodes.archived;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;

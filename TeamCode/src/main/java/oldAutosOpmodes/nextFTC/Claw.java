@@ -1,4 +1,4 @@
-package pedroPathing.nextFTC;
+package oldAutosOpmodes.nextFTC;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.rowanmcalpin.nextftc.core.Subsystem;

@@ -1,4 +1,4 @@
-package pedroPathing.nextFTC;
+package oldAutosOpmodes.nextFTC;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.rowanmcalpin.nextftc.core.command.Command;

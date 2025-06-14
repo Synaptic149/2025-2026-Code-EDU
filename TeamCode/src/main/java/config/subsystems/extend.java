@@ -1,16 +1,6 @@
 package config.subsystems;
 
-import static config.core.robotConstants.ed;
-import static config.core.robotConstants.ei;
-import static config.core.robotConstants.ep;
-import static config.core.robotConstants.f;
-import static config.core.robotConstants.half;
-import static config.core.robotConstants.max;
-import static config.core.robotConstants.one_third;
-import static config.core.robotConstants.outmotorName;
-import static config.core.robotConstants.two_thirds;
-import static config.core.robotConstants.zero;
-import static config.subsystems.extend.extendState.full;
+import static config.core.robotConstants.*;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -42,8 +32,9 @@ public class extend {
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         out = hardwareMap.get(DcMotor.class, outmotorName);
+        out.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         out.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         pid = new PIDController(ep, ei, ed);
     }
@@ -58,10 +49,10 @@ public class extend {
 
             out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT); // Sets it so it floats, no active resistance, active power for pid?
 
-            double pid_output = pid.calculate(out.getCurrentPosition(), target); // pid usage
+            double pid_output = pid.calculate(getpos(), target); // pid usage
             double power = pid_output + f; // adding f from the pid
             // setting tolerances
-            out.setPower(power);
+            out.setPower(-power);
 
         }
     }
@@ -92,19 +83,23 @@ public class extend {
     }
 
     public void tothird() {
-        setTarget(one_third);
+        setTarget(max/3);
     }
     public void tohalf() {
-        setTarget(half);
+        setTarget(max/2);
     }
     public void totwothird() {
-        setTarget(two_thirds);
+        setTarget(2* max/3);
     }
     public void tofull() {
         setTarget(max);
     }
+    public int getpos() {
+        pos = out.getCurrentPosition();
+        return(pos);
+    }
     public void telemetry() {
-        telemetry.addData("out Pos: ", out.getCurrentPosition());
+        telemetry.addData("out Pos: ", getpos());
         telemetry.addData("out Target: ", target);
     }
     public void periodic() {

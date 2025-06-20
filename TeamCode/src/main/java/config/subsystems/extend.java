@@ -52,7 +52,7 @@ public class extend {
             double pid_output = pid.calculate(getpos(), target); // pid usage
             double power = pid_output + f; // adding f from the pid
             // setting tolerances
-            out.setPower(-power);
+            out.setPower(power);
 
         }
     }

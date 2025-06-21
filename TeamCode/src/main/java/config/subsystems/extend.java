@@ -4,13 +4,9 @@ import static config.core.robotConstants.ed;
 import static config.core.robotConstants.ei;
 import static config.core.robotConstants.ep;
 import static config.core.robotConstants.f;
-import static config.core.robotConstants.half;
 import static config.core.robotConstants.max;
-import static config.core.robotConstants.one_third;
 import static config.core.robotConstants.outmotorName;
-import static config.core.robotConstants.two_thirds;
 import static config.core.robotConstants.zero;
-import static config.subsystems.extend.extendState.full;
 
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -23,9 +19,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class extend {
-    public enum extendState {
-        zero, quarter, half, full
-    }
+
 
     private Telemetry telemetry;
 
@@ -70,37 +64,24 @@ public class extend {
         target = b;
     }
 
-   /* public void manual(double left, double right) {
-        if(Math.abs(left) > 0.05 || Math.abs(right) > 0.05) {
-            pidLevel = 2;
-            leftLift.setPower(right - left);
-            rightLift.setPower(right - left);
-        } else if (pidLevel == 2) {
-            rightLift.setPower(0);
-            leftLift.setPower(0);
-        }
-    }
-
-
-    */
     public void init() {
         pid.setPID(ep,ei,ed);
     }
-    public void tozero() {
+    public void to_zero() {
         setTarget(zero);
 
     }
 
-    public void tothird() {
-        setTarget(one_third);
+    public void to_third() {
+        setTarget(max/3);
     }
-    public void tohalf() {
-        setTarget(half);
+    public void to_half() {
+        setTarget(max/2);
     }
-    public void totwothird() {
-        setTarget(two_thirds);
+    public void to_two_third() {
+        setTarget(2*max/3);
     }
-    public void tofull() {
+    public void to_full() {
         setTarget(max);
     }
     public void telemetry() {

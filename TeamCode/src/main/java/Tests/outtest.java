@@ -30,16 +30,16 @@ public class outtest extends OpMode {
         g1.copy(gamepad1);
 
         if (g1.triangle) {
-            e.tofull();
+            e.to_full();
         } else if (g1.cross) {
-            e.tozero();
+            e.to_zero();
         } else if (g1.square) {
-            e.tothird();
+            e.to_third();
         } else if(g1.circle) {
-            e.totwothird();
+            e.to_two_third();
 
         } else if(g1.dpad_up) {
-            e.tohalf();
+            e.to_half();
         }
         e.periodic();
         telemetry.update();

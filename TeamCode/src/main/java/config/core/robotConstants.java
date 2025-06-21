@@ -21,6 +21,7 @@ public class robotConstants {
     /// follower
     ///
     public static String inmotorname = "in";
+    public static String spinnymotorname = "spin";
 
     public static double speed = 0.6;
     public static double turnSpeed = 0.5;

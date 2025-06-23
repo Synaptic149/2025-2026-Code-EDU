@@ -14,13 +14,11 @@ public class robotConstants {
 
     public static int max = 600;
 
-    public static int half = max/2;
+    /// intake
+    public static double intake_speed = 0.5;
+    public static double barf_speed = -0.3;
 
-    public static int one_third  = max/3;
-
-    public static int two_thirds = (max/3) * 2;
-
-
+    public static double speed = 1.0;
 
 
 
